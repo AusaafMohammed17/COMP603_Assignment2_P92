@@ -3,15 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
 
-package Assignment2;
+package com.mycompany.memorygame2;
 
 /**
  *
  * @author ausup
  */
-public class Assignment2Final {
+public class MemoryGame2 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        GameMenu menu = new GameMenu();
+        GameInstructions instructions = new GameInstructions();
+        StartGame startGame = new StartGame();
+        
+        menu.setVisible(true);
+        instructions.setVisible(false);
+
     }
+
 }
