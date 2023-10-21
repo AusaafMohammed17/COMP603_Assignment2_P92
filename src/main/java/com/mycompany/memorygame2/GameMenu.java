@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -52,7 +52,7 @@ public class GameMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameInstructions instructions = new GameInstructions();
-                instructions.setSize(900,300);
+                instructions.setSize(900, 300);
                 instructions.setVisible(true);
             }
         });
@@ -60,8 +60,16 @@ public class GameMenu extends JFrame {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create a new instance of the StartGame class.
-                StartGame startGame = new StartGame();
+                // Ask the user for their name
+                String playerName = JOptionPane.showInputDialog("Please enter your name:");
+
+                if (playerName != null && !playerName.isEmpty()) {
+                    // Create a new instance of the StartGame class with the player's name.
+                    StartGame startGame = new StartGame(playerName);
+                } else {
+                    // Handle the case where the user didn't enter a name.
+                    System.out.println("Name Not entered! Program would not start...");
+                }
             }
         });
 

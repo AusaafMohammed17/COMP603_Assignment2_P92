@@ -14,7 +14,6 @@ import javax.swing.JPanel;
  * @author ausaaf mohammed
  */
 
-
 public class GameInstructions extends JDialog {
 
     public GameInstructions() {
