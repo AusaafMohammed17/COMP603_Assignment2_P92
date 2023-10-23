@@ -11,23 +11,34 @@ package com.mycompany.memorygame2;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class ScoreDisplay extends JFrame {
-    public ScoreDisplay(int score) {
+    
+    public ScoreDisplay(String playerName, int score) {
         super("Score Display");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Create a label to display the score
-        JLabel label = new JLabel("Your score: " + score);
-        label.setFont(new Font("Arial", Font.PLAIN, 24));
+        // Create labels to display the player's name and score
+        JLabel nameLabel = new JLabel("Player: " + playerName);
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        
+        JLabel scoreLabel = new JLabel("Your score: " + score);
+        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 24));
 
-        // Set the label to be centered
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.CENTER);
+        // Set labels to be centered
+        nameLabel.setHorizontalAlignment(JLabel.CENTER);
+        scoreLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        // Add the label to the frame
-        add(label);
+        // Create a panel to hold the labels
+        JPanel panel = new JPanel(new GridLayout(2, 1));
+        panel.add(nameLabel);
+        panel.add(scoreLabel);
+
+        // Add the panel to the frame
+        add(panel);
 
         // Set the frame size and make it visible
         setSize(400, 300);
@@ -35,4 +46,5 @@ public class ScoreDisplay extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
+    
 }

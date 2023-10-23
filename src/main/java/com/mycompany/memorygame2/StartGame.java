@@ -78,7 +78,7 @@ public class StartGame {
         
        // Create a timer.
        // Create a timer with a 3-second delay (3000 milliseconds)
-        timer = new javax.swing.Timer(1000, new ActionListener() {
+        timer = new javax.swing.Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 questionLabel.setVisible(false);
@@ -151,7 +151,7 @@ public class StartGame {
 
     private void showScore() {
         if (!scoreDisplayed) {
-            new ScoreDisplay(score).setVisible(true);
+            new ScoreDisplay(playerName, score).setVisible(true);
             scoreDisplayed = true;
             frame.setVisible(false); // Hide the StartGame window
         }
