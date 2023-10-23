@@ -5,6 +5,8 @@
 
 package com.mycompany.memorygame2;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author ausup
@@ -12,17 +14,18 @@ package com.mycompany.memorygame2;
 
 public class MemoryGame2 {
 
-    private static String playerName;
-
     public static void main(String[] args) {
-        GameMenu menu = new GameMenu();
-        GameInstructions instructions = new GameInstructions();
-        StartGame startGame = new StartGame(playerName);
-        
-        menu.setVisible(true);
-        instructions.setVisible(false);
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // Create the game menu
+                GameMenu menu = new GameMenu();
+                menu.setVisible(true);
+                
+                // Initialize instructions
+                GameInstructions instructions = new GameInstructions();
+                instructions.setVisible(false);
+            }
+        });
     }
-
 }
-

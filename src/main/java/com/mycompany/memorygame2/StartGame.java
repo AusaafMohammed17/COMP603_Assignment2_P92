@@ -31,10 +31,9 @@ public class StartGame {
         digits = new ArrayList<>();
 
         // Generate a random sequence of 10 digits.
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             digits.add(String.valueOf(random.nextInt(10)));
         }
-
 
         // Create the GUI components.
         frame = new JFrame("Memory Quiz");
@@ -49,8 +48,8 @@ public class StartGame {
         questionLabel.setPreferredSize(new Dimension(100, 20));
 
         // Set the font of the questionLabel and answerField components.
-        questionLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        answerField.setFont(new Font("Arial", Font.PLAIN, 12));
+        questionLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        answerField.setFont(new Font("Arial", Font.PLAIN, 24));
 
         // Set the layout manager of the panel to the FlowLayout object.
         panel.setLayout(new FlowLayout());
@@ -64,7 +63,7 @@ public class StartGame {
         frame.add(panel, BorderLayout.CENTER);
 
         // Create a timer.
-        timer = new javax.swing.Timer(5000, new ActionListener() {
+        timer = new javax.swing.Timer(3500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Hide the question
@@ -93,18 +92,15 @@ public class StartGame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String answer = answerField.getText();
-                boolean isCorrect = answer.equals(getCorrectAnswer());
+                submitAnswer();
+            }
+        });
 
-                // Display the result to the user.
-                if (isCorrect) {
-                    questionLabel.setText("Correct!");
-                } else {
-                    questionLabel.setText("Incorrect. The correct answer is " + getCorrectAnswer());
-                }
-
-                // Start the timer.
-                timer.start();
+        // Add an action listener to the answer field to handle "Enter" key press
+        answerField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                submitAnswer();
             }
         });
 
@@ -133,5 +129,23 @@ public class StartGame {
 
         return digits.get(currentQuestionIndex);
     }
-}
+    
+    
 
+    private void submitAnswer() {
+        String answer = answerField.getText();
+        boolean isCorrect = answer.equals(getCorrectAnswer());
+
+        // Display the result to the user.
+        if (isCorrect) {
+            questionLabel.setText("Correct!");
+        } else {
+            questionLabel.setText("Wrong!");
+        }
+
+        // Start the timer.
+        timer.start();
+    }
+    
+    
+}

@@ -25,6 +25,7 @@ public class GameMenu extends JFrame {
     private JButton startGameButton;
     private JButton scoreboardButton;
     private JButton exitButton;
+    private StartGame startGame;
 
     public GameMenu() {
         super("Memory Game Menu");
