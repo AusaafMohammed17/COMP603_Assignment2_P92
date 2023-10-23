@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package com.mycompany.memorygame2;
 import javax.swing.*;
 import java.awt.*;
@@ -22,20 +23,17 @@ public class StartGame {
     private int currentQuestionIndex;
     private ArrayList<String> digits;
     private javax.swing.Timer timer;
+    private int score; // Added to keep track of the score
+    private boolean scoreDisplayed; // Flag to check if the score has been displayed
 
     public StartGame(String playerName) {
-        this.playerName = playerName; // Store the player's name
-
+        this.playerName = playerName;
         random = new Random();
         currentQuestionIndex = 0;
         digits = new ArrayList<>();
+        score = 0; // Initialize score to 0
+        scoreDisplayed = false; // Initialize the flag to false
 
-        // Generate a random sequence of 10 digits.
-        for (int i = 0; i < 10; i++) {
-            digits.add(String.valueOf(random.nextInt(10)));
-        }
-
-        // Create the GUI components.
         frame = new JFrame("Memory Quiz");
         panel = new JPanel();
         questionLabel = new JLabel();
@@ -61,66 +59,86 @@ public class StartGame {
 
         // Add the panel to the frame.
         frame.add(panel, BorderLayout.CENTER);
-
-        // Create a timer.
-        timer = new javax.swing.Timer(3500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Hide the question
-                questionLabel.setVisible(false);
-
-                // Clear the answer field.
-                answerField.setText("");
-
-                // Display the next question.
-                currentQuestionIndex++;
-                String nextQuestion = getQuestion();
-
-                // If there are no more questions, end the quiz.
-                if (nextQuestion == null) {
-                    frame.setVisible(false);
-                    return;
-                }
-
-                // Display the next question to the user.
-                questionLabel.setText(nextQuestion);
-                questionLabel.setVisible(true);
-            }
-        });
-
-        // Add an action listener to the submit button.
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                submitAnswer();
-            }
-        });
-
-        // Add an action listener to the answer field to handle "Enter" key press
+        
         answerField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                submitAnswer();
+                submitButton.doClick(); // Simulate a click on the submit button
+            }
+        });
+        
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Handle the window-closing event
+                showScore();
+                frame.dispose(); // Close the game window
+            }
+        });
+        
+       // Create a timer.
+       // Create a timer with a 3-second delay (3000 milliseconds)
+        timer = new javax.swing.Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                questionLabel.setVisible(false);
+                answerField.setText("");
+                currentQuestionIndex++;
+                showNextQuestion();
             }
         });
 
-        // Set the window size to (1000, 800).
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String answer = answerField.getText();
+                boolean isCorrect = answer.equals(getCorrectAnswer());
+
+                if (isCorrect) {
+                    questionLabel.setText("Correct!");
+                    score++; // Increment the score for correct answers
+                } else {
+                    questionLabel.setText("Wrong!");
+                }
+
+                // Start the timer.
+                timer.start();
+
+                if (currentQuestionIndex >= digits.size()) {
+                    // Display the score when all questions have been answered
+                    showScore();
+                    frame.setVisible(false);
+                }
+            }
+        });
+
         frame.setSize(1000, 800);
-
-        // Set the window visibility to true.
         frame.setVisible(true);
-
-        // Start the timer.
-        timer.start();
+        generateDigits(); // Generate the sequence of digits
+        showNextQuestion(); // Display the first question
     }
 
-    private String getQuestion() {
-        if (currentQuestionIndex >= digits.size()) {
-            return null;
+    private void generateDigits() {
+        // Generate a random sequence of 5 digits.
+        for (int i = 0; i < 10; i++) {
+            digits.add(String.valueOf(random.nextInt(10)));
         }
-
-        return digits.get(currentQuestionIndex);
     }
+
+    private void showNextQuestion() {
+        if (currentQuestionIndex < digits.size()) {
+            questionLabel.setText(digits.get(currentQuestionIndex));
+            questionLabel.setVisible(true);
+
+            // Start the timer here
+            timer.start();
+        } else {
+            // Display the score when all questions have been answered
+            showScore();
+            frame.setVisible(false);
+        }
+    }
+
 
     private String getCorrectAnswer() {
         if (currentQuestionIndex >= digits.size()) {
@@ -129,23 +147,15 @@ public class StartGame {
 
         return digits.get(currentQuestionIndex);
     }
-    
-    
 
-    private void submitAnswer() {
-        String answer = answerField.getText();
-        boolean isCorrect = answer.equals(getCorrectAnswer());
 
-        // Display the result to the user.
-        if (isCorrect) {
-            questionLabel.setText("Correct!");
-        } else {
-            questionLabel.setText("Wrong!");
+    private void showScore() {
+        if (!scoreDisplayed) {
+            new ScoreDisplay(score).setVisible(true);
+            scoreDisplayed = true;
+            frame.setVisible(false); // Hide the StartGame window
         }
-
-        // Start the timer.
-        timer.start();
     }
-    
-    
+
+
 }

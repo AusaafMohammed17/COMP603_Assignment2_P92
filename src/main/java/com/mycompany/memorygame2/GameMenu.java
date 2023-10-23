@@ -47,6 +47,8 @@ public class GameMenu extends JFrame {
 
         // Add the panel to the frame
         add(buttonPanel, BorderLayout.CENTER);
+        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // This will exit the program when the window is closed
 
         // Add action listeners to the buttons
         instructionsButton.addActionListener(new ActionListener() {
