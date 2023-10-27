@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.memorygame2;
+package com.mycompany.typinggame;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +29,8 @@ public class GameMenu extends JFrame {
     private JButton startGameButton;
     private JButton scoreboardButton;
     private JButton exitButton;
+    private JButton scoreDeleteButton;
+    private JButton adminButton;
     private StartGame startGame;
 
     public GameMenu() {
@@ -35,14 +41,18 @@ public class GameMenu extends JFrame {
         startGameButton = new JButton("Start Game");
         scoreboardButton = new JButton("Scoreboard");
         exitButton = new JButton("Exit");
+        scoreDeleteButton = new JButton("Score Deletion");
+        adminButton = new JButton("Admin");
 
         // Create a GridLayout with 4 rows and 1 column
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(6, 1));
 
         // Add the buttons to the panel
         buttonPanel.add(instructionsButton);
         buttonPanel.add(startGameButton);
         buttonPanel.add(scoreboardButton);
+        buttonPanel.add(scoreDeleteButton);
+        buttonPanel.add(adminButton);
         buttonPanel.add(exitButton);
 
         // Add the panel to the frame
@@ -79,16 +89,49 @@ public class GameMenu extends JFrame {
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Show the scoreboard dialog
-                // ...
+                File scoreboard = new File("scores.txt");
+                if (scoreboard.exists()) {
+                    // Read scores from the file and display them
+                    try (BufferedReader reader = new BufferedReader(new FileReader("scores.txt"))) {
+                        String line;
+                        StringBuilder scores = new StringBuilder();
+                        while ((line = reader.readLine()) != null) {
+                            scores.append(line).append("\n");
+                        }
+                        // Show scores in a dialog
+                        JOptionPane.showMessageDialog(GameMenu.this, scores.toString(), "Scoreboard", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+            } else {
+                // The scoreboard file doesn't exist, notify the user
+                JOptionPane.showMessageDialog(GameMenu.this, "Scoreboard doesn't exist.");
+            }
+                
+                
             }
         });
-
+        
+        scoreDeleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create and show the ScoreDeletion dialog
+                new ScoreFileDeletion().setVisible(true);
+            }
+        });
+        
+        adminButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create an instance of the AdminLogin class to display the login window
+                AdminLogin adminLogin = new AdminLogin();
+            }
+        });
+        
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Exit the game
-                System.exit(0);
+                new QuitGame();
             }
         });
 

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.mycompany.memorygame2;
+package com.mycompany.typinggame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -78,7 +78,7 @@ public class StartGame {
         
        // Create a timer.
        // Create a timer with a 3-second delay (3000 milliseconds)
-        timer = new javax.swing.Timer(3000, new ActionListener() {
+        timer = new javax.swing.Timer(1500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 questionLabel.setVisible(false);

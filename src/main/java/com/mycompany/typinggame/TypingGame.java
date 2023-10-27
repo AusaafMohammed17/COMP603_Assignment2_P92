@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
 
-package com.mycompany.memorygame2;
+package com.mycompany.typinggame;
 
 import javax.swing.SwingUtilities;
 
@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
  * @author ausup
  */
 
-public class MemoryGame2 {
+public class TypingGame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -24,7 +24,7 @@ public class MemoryGame2 {
                 
                 // Initialize instructions
                 GameInstructions instructions = new GameInstructions();
-                instructions.setVisible(false);
+                instructions.setVisible(false);        
             }
         });
     }
