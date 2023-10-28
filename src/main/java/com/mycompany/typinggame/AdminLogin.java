@@ -44,7 +44,11 @@ public class AdminLogin extends JFrame {
 
                 if (username.equals(expectedUsername) && new String(password).equals(expectedPassword)) {
                     JOptionPane.showMessageDialog(AdminLogin.this, "Admin logged in!");
-                    dispose();
+                    dispose(); // Close the AdminLogin window
+                    
+                    // If admin login is successful, open the ScoreFileDeletion window
+                    new ScoreFileDeletion();
+                    
                 } else {
                     JOptionPane.showMessageDialog(AdminLogin.this, "Invalid username or password.");
                 }

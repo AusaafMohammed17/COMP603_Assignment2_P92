@@ -39,7 +39,7 @@ public class ScoreFileDeletion extends JFrame {
                     JOptionPane.showMessageDialog(null, "Scores file deleted.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Deletion canceled.");
-                }
+                } 
             }
         });
 

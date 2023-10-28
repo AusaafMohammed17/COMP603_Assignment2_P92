@@ -29,7 +29,6 @@ public class GameMenu extends JFrame {
     private JButton startGameButton;
     private JButton scoreboardButton;
     private JButton exitButton;
-    private JButton scoreDeleteButton;
     private JButton adminButton;
     private StartGame startGame;
 
@@ -41,17 +40,15 @@ public class GameMenu extends JFrame {
         startGameButton = new JButton("Start Game");
         scoreboardButton = new JButton("Scoreboard");
         exitButton = new JButton("Exit");
-        scoreDeleteButton = new JButton("Score Deletion");
         adminButton = new JButton("Admin");
 
-        // Create a GridLayout with 4 rows and 1 column
-        JPanel buttonPanel = new JPanel(new GridLayout(6, 1));
+        // Create a GridLayout with 5 rows and 1 column
+        JPanel buttonPanel = new JPanel(new GridLayout(5, 1));
 
         // Add the buttons to the panel
         buttonPanel.add(instructionsButton);
         buttonPanel.add(startGameButton);
         buttonPanel.add(scoreboardButton);
-        buttonPanel.add(scoreDeleteButton);
         buttonPanel.add(adminButton);
         buttonPanel.add(exitButton);
 
@@ -109,14 +106,6 @@ public class GameMenu extends JFrame {
             }
                 
                 
-            }
-        });
-        
-        scoreDeleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Create and show the ScoreDeletion dialog
-                new ScoreFileDeletion().setVisible(true);
             }
         });
         
