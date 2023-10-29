@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author ausaaf mohammed
+ * @author ausaafmohammed
  */
 
 public class GameInstructions extends JDialog {
@@ -21,14 +21,15 @@ public class GameInstructions extends JDialog {
 
         // Create a label to display the instructions
         JLabel instruction1 = new JLabel("---------------------------------------------------------------------------------\n");
-        JLabel instruction2 = new JLabel("A number will be displayed on your screen for 5 seconds\n");
-        JLabel instruction3 = new JLabel("Once the timer ends, enter the number that was displayed\n");
-        JLabel instruction4 = new JLabel("If number entered was correct, you get +1 point and if not, you get 0 points\n");
-        JLabel instruction5 = new JLabel("There will be upto 10 stages and in each stage, the number of integers increase\n");
-        JLabel instruction6 = new JLabel("If you wish to end the game, you can press 'y' when the question is asked.\n");
+        JLabel instruction2 = new JLabel("A number will be displayed on your screen for 1.5 seconds\n");
+        JLabel instruction3 = new JLabel("Enter the number as fast as possible and submit within the time.\n");
+        JLabel instruction4 = new JLabel("There will be upto 10 questions.\n");
+        JLabel instruction5 = new JLabel("If number entered was correct, you get +1 point and if not, you get 0 points. Make sure to save your score.\n");
+        JLabel instruction6 = new JLabel("If you wish to end the game, you can use the cross on window to terminate your game.\n");
         JLabel instruction7 = new JLabel("NOTE - Entering any value that is not a number will be treated wrong and you won't get second chance!\n");
         JLabel instruction8 = new JLabel("---------------------------------------------------------------------------------\n");
         
+        // Set the font for the instructions
         instruction1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         instruction2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         instruction3.setFont(new Font("Times New Roman", Font.PLAIN, 20));

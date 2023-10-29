@@ -6,7 +6,7 @@ package com.mycompany.typinggame;
 
 /**
  *
- * @author ausup
+ * @author ausaafmohammed
  */
 
 import java.io.*;
@@ -32,16 +32,17 @@ public class Scoreboard {
     }
 
     private void saveData() {
+        // create new object and save the entries to the data file
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataFilePath))) {
             oos.writeObject(entries);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    @SuppressWarnings("unchecked")
+    
     private void loadData() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataFilePath))) {
+            // Deserialize and load the entries from the data file
             entries = (ArrayList<ScoreboardEntry>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             entries = new ArrayList<>(); // Initialize with an empty list if data cannot be loaded

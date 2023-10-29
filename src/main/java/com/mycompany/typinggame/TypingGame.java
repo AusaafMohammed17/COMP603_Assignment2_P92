@@ -5,12 +5,12 @@
 
 package com.mycompany.typinggame;
 
-import javax.swing.SwingUtilities;
-
 /**
  *
- * @author ausup
+ * @author ausaafmohammed
  */
+
+import javax.swing.SwingUtilities;
 
 public class TypingGame {
 
@@ -22,7 +22,7 @@ public class TypingGame {
                 GameMenu menu = new GameMenu();
                 menu.setVisible(true);
                 
-                // Initialize instructions
+                // Initialize game instructions but initially set it to be invisible
                 GameInstructions instructions = new GameInstructions();
                 instructions.setVisible(false);        
             }

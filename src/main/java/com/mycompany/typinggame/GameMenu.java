@@ -20,29 +20,29 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author ausaaf mohammed
+ * @author ausaafmohammed
  */
 
 public class GameMenu extends JFrame {
-
+    // Declare instance variables
     private JButton instructionsButton;
     private JButton startGameButton;
     private JButton scoreboardButton;
     private JButton exitButton;
     private JButton adminButton;
-    private StartGame startGame;
+    private StartGame startGame; // A reference to the StartGame class
 
     public GameMenu() {
-        super("Memory Game Menu");
+        super("Memory Game Menu"); // Set the window title
 
-        // Create the buttons
+        // Create buttons for different menu options
         instructionsButton = new JButton("Instructions");
         startGameButton = new JButton("Start Game");
         scoreboardButton = new JButton("Scoreboard");
         exitButton = new JButton("Exit");
         adminButton = new JButton("Admin");
 
-        // Create a GridLayout with 5 rows and 1 column
+        // Create a panel to hold the buttons in a vertical layout
         JPanel buttonPanel = new JPanel(new GridLayout(5, 1));
 
         // Add the buttons to the panel
@@ -52,18 +52,18 @@ public class GameMenu extends JFrame {
         buttonPanel.add(adminButton);
         buttonPanel.add(exitButton);
 
-        // Add the panel to the frame
+        // Add the button panel to the frame's center
         add(buttonPanel, BorderLayout.CENTER);
-        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // This will exit the program when the window is closed
+
+        // Set the default close operation for the frame
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add action listeners to the buttons
         instructionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Show game instructions in a dialog by creating an instance of GameInstructions
                 GameInstructions instructions = new GameInstructions();
-                instructions.setSize(900, 300);
-                instructions.setVisible(true);
             }
         });
 
@@ -78,7 +78,7 @@ public class GameMenu extends JFrame {
                     StartGame startGame = new StartGame(playerName);
                 } else {
                     // Handle the case where the user didn't enter a name.
-                    System.out.println("Name Not entered! Program would not start...");
+                    System.out.println("Name not entered! Program would not start...");
                 }
             }
         });
@@ -86,6 +86,7 @@ public class GameMenu extends JFrame {
         scoreboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Check if the scoreboard file exists
                 File scoreboard = new File("scores.txt");
                 if (scoreboard.exists()) {
                     // Read scores from the file and display them
@@ -100,15 +101,13 @@ public class GameMenu extends JFrame {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-            } else {
-                // The scoreboard file doesn't exist, notify the user
-                JOptionPane.showMessageDialog(GameMenu.this, "Scoreboard doesn't exist.");
-            }
-                
-                
+                } else {
+                    // The scoreboard file doesn't exist, notify the user
+                    JOptionPane.showMessageDialog(GameMenu.this, "Scoreboard doesn't exist.");
+                }
             }
         });
-        
+
         adminButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,10 +115,11 @@ public class GameMenu extends JFrame {
                 AdminLogin adminLogin = new AdminLogin();
             }
         });
-        
+
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Exit the game by creating an instance of QuitGame
                 new QuitGame();
             }
         });
@@ -129,3 +129,4 @@ public class GameMenu extends JFrame {
         setVisible(true);
     }
 }
+

@@ -6,12 +6,10 @@ package com.mycompany.typinggame;
 
 /**
  *
- * @author ausup
+ * @author ausaafmohammed
  */
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
 
 public class ScoreboardGUI {
     private Scoreboard scoreboard;
@@ -19,20 +17,26 @@ public class ScoreboardGUI {
     private JList<String> scoreboardList;
 
     public ScoreboardGUI(Scoreboard scoreboard) {
+        // Initialize the ScoreboardGUI with a Scoreboard instance
         this.scoreboard = scoreboard;
         frame = new JFrame("Scoreboard");
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Create a DefaultListModel to hold the entries for the JList
         DefaultListModel<String> listModel = new DefaultListModel<>();
         scoreboardList = new JList<>(listModel);
 
+        // Populate the JList with entries from the Scoreboard
         for (ScoreboardEntry entry : scoreboard.getEntries()) {
             listModel.addElement(entry.getPlayerName() + " - " + entry.getScore());
         }
 
+        // Add the JList to the JFrame
         frame.add(scoreboardList);
+
+        // Set the frame size and make it visible
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
+

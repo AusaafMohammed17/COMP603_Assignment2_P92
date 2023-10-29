@@ -6,9 +6,8 @@ package com.mycompany.typinggame;
 
 /**
  *
- * @author ausup
+ * @author ausaafmohammed
  */
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +39,7 @@ public class ScoreDisplay extends JFrame {
         // Create a button to save the score
         JButton saveButton = new JButton("Save Score");
 
+        // Add an action listener to the save button
         saveButton.addActionListener(e -> saveScore());
 
         // Create a panel to arrange components
@@ -58,10 +58,10 @@ public class ScoreDisplay extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        // Add a window listener to save the score when the window is closed
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // Save the score when the window is closed
                 saveScore();
             }
         });
@@ -70,9 +70,13 @@ public class ScoreDisplay extends JFrame {
     }
 
     private void saveScore() {
+        // Get the player's name from the text field
         String playerName = nameField.getText();
+
+        // Check if the name is not empty
         if (!playerName.isEmpty()) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("scores.txt", true))) {
+                // Write the player's name and score to the scores file
                 writer.write(playerName + " - " + score);
                 writer.newLine();
             } catch (IOException e) {
@@ -80,6 +84,7 @@ public class ScoreDisplay extends JFrame {
             }
         }
 
-        dispose(); // Close the window
+        // Close the window
+        dispose();
     }
 }

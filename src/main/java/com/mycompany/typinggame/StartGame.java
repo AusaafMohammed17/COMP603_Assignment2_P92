@@ -4,6 +4,12 @@
  */
 
 package com.mycompany.typinggame;
+
+/**
+ *
+ * @author ausaafmohammed
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,18 +27,20 @@ public class StartGame {
 
     private Random random;
     private int currentQuestionIndex;
-    private ArrayList<String> digits;
+    private ArrayList<String> numbers;
     private javax.swing.Timer timer;
     private int score; // Added to keep track of the score
     private boolean scoreDisplayed; // Flag to check if the score has been displayed
+    private String expectedAnswer; // Added to store the expected answer for testing
 
     public StartGame(String playerName) {
         this.playerName = playerName;
         random = new Random();
         currentQuestionIndex = 0;
-        digits = new ArrayList<>();
+        numbers = new ArrayList<>();
         score = 0; // Initialize score to 0
         scoreDisplayed = false; // Initialize the flag to false
+        expectedAnswer = null; // Initialize expectedAnswer to null
 
         frame = new JFrame("Memory Quiz");
         panel = new JPanel();
@@ -59,14 +67,15 @@ public class StartGame {
 
         // Add the panel to the frame.
         frame.add(panel, BorderLayout.CENTER);
-        
+
+        // Handle pressing Enter in the answer field as a submit action
         answerField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 submitButton.doClick(); // Simulate a click on the submit button
             }
         });
-        
+
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -75,9 +84,9 @@ public class StartGame {
                 frame.dispose(); // Close the game window
             }
         });
-        
-       // Create a timer.
-       // Create a timer with a 3-second delay (3000 milliseconds)
+
+        // Create a timer with a 1.5-second delay (1500 milliseconds)
+        // I chose time to be 1.5 seconds because it is a perfect amount for a typing game delay
         timer = new javax.swing.Timer(1500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,7 +113,7 @@ public class StartGame {
                 // Start the timer.
                 timer.start();
 
-                if (currentQuestionIndex >= digits.size()) {
+                if (currentQuestionIndex >= numbers.size()) {
                     // Display the score when all questions have been answered
                     showScore();
                     frame.setVisible(false);
@@ -114,20 +123,20 @@ public class StartGame {
 
         frame.setSize(1000, 800);
         frame.setVisible(true);
-        generateDigits(); // Generate the sequence of digits
+        generateDigits(); // Generate the sequence of numbers
         showNextQuestion(); // Display the first question
     }
 
     private void generateDigits() {
-        // Generate a random sequence of 5 digits.
+        // Generate a random sequence of 5 numbers.
         for (int i = 0; i < 10; i++) {
-            digits.add(String.valueOf(random.nextInt(10)));
+            numbers.add(String.valueOf(random.nextInt(10)));
         }
     }
 
     private void showNextQuestion() {
-        if (currentQuestionIndex < digits.size()) {
-            questionLabel.setText(digits.get(currentQuestionIndex));
+        if (currentQuestionIndex < numbers.size()) {
+            questionLabel.setText(numbers.get(currentQuestionIndex));
             questionLabel.setVisible(true);
 
             // Start the timer here
@@ -139,15 +148,12 @@ public class StartGame {
         }
     }
 
-
     private String getCorrectAnswer() {
-        if (currentQuestionIndex >= digits.size()) {
+        if (currentQuestionIndex >= numbers.size()) {
             return null;
         }
-
-        return digits.get(currentQuestionIndex);
+        return numbers.get(currentQuestionIndex);
     }
-
 
     private void showScore() {
         if (!scoreDisplayed) {
@@ -156,6 +162,33 @@ public class StartGame {
             frame.setVisible(false); // Hide the StartGame window
         }
     }
+    
+    // Set the expected answer for testing
+    public void setAnswer(String expectedAnswer) {
+        this.expectedAnswer = expectedAnswer;
+    }
 
+    // Get the current score
+    public int getScore() {
+        return score;
+    }
+    
+    public void submitAnswer(String answer) {
+        String correctAnswer = getCorrectAnswer();
+        if (answer.equals(correctAnswer)) {
+            questionLabel.setText("Correct!");
+            score++; // Increment the score for correct answers
+        } else {
+            questionLabel.setText("Wrong!");
+        }
 
+        // Start the timer.
+        timer.start();
+
+        if (currentQuestionIndex >= numbers.size()) {
+            // Display the score when all questions have been answered
+            showScore();
+            frame.setVisible(false);
+        }
+    }
 }
