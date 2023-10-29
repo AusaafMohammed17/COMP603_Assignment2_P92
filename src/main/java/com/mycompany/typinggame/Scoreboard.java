@@ -16,6 +16,7 @@ public class Scoreboard {
     private ArrayList<ScoreboardEntry> entries;
     private String dataFilePath;
 
+    // Test cases
     public Scoreboard(String dataFilePath) {
         this.dataFilePath = dataFilePath;
         entries = new ArrayList<>();
@@ -34,18 +35,19 @@ public class Scoreboard {
     private void saveData() {
         // create new object and save the entries to the data file
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataFilePath))) {
-            oos.writeObject(entries);
+            oos.writeObject(entries); // Serialize and write the 'entries' ArrayList to the data file
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle any IOException by printing the stack trace for debugging
         }
     }
-    
+
     private void loadData() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataFilePath))) {
             // Deserialize and load the entries from the data file
-            entries = (ArrayList<ScoreboardEntry>) ois.readObject();
+            entries = (ArrayList<ScoreboardEntry>) ois.readObject(); // Read and cast the object to 'entries'
         } catch (IOException | ClassNotFoundException e) {
             entries = new ArrayList<>(); // Initialize with an empty list if data cannot be loaded
         }
     }
+
 }

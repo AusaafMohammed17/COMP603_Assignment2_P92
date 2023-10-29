@@ -13,18 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 public class StartGameTest {
-    @Test
-    public void testCorrectAnswer() {
-        // Create an instance of StartGame
-        StartGame game = new StartGame("TestPlayer");
-
-        // Simulate providing a correct answer
-        game.setAnswer("3"); // Set the expected correct answer
-
-        // Run the game and verify that the score increments
-        game.submitAnswer("3");
-        assertEquals(0, game.getScore());
-    }
     
     @Test
     public void testIncorrectAnswer() {
@@ -38,5 +26,17 @@ public class StartGameTest {
         // Verify that the score remains unchanged
         assertEquals(0, game.getScore());
     }
+    
+    @Test
+    public void testCorrectAnswer() {
+        // Create an instance of StartGame
+        StartGame game = new StartGame("TestPlayer");
 
+        // Simulate providing a correct answer
+        game.setAnswer("3"); // Set the expected correct answer
+
+        // Run the game and verify that the score increments
+        game.submitAnswer("3");
+        assertEquals(0, game.getScore());
+    }
 }

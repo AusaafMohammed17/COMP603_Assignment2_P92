@@ -42,6 +42,7 @@ public class StartGame {
         scoreDisplayed = false; // Initialize the flag to false
         expectedAnswer = null; // Initialize expectedAnswer to null
 
+        // Creating new objects
         frame = new JFrame("Memory Quiz");
         panel = new JPanel();
         questionLabel = new JLabel();
